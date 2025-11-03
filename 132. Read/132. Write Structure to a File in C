@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct Student{
+    int id;
+    char name[50];
+    float marks;
+};
+int main(){
+    struct Student s1,s2;
+    FILE*fptr;
+    fptr=fopen("student.txt","wb");
+    if(fptr==NULL){
+        printf("Error opening file!");
+        exit(1);
+    }
+    printf("Enter ID:");
+    scanf("%d",&s1.id);
+    printf("Enter name:");
+    scanf("%s",s1.name);
+    printf("Enter marks:");
+    scanf("%f",&s1.marks);
+    fwrite(&s1,sizeof(struct Student),1,fptr);
+    fclose(fptr);
+    fptr=fopen("student.txt","rb");
+    if(fptr==NULL){
+        printf("Error opening file!");
+        exit(1);
+    }
+    fread(&s2,sizeof(struct Student),1,fptr);
+    fclose(fptr);
+    printf("\nStudent details read from file:\n");
+    printf("ID: %d\n",s2.id);
+    printf("Name: %s\n",s2.name);
+    printf("Marks: %.2f\n",s2.marks);
+    return 0;
+}
